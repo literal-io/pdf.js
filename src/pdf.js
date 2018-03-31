@@ -113,5 +113,5 @@ exports.apiCompatibilityParams =
   pdfjsDisplayAPICompatibility.apiCompatibilityParams;
 
 exports.setPDFNetworkStreamFactory = pdfjsDisplayAPI.setPDFNetworkStreamFactory;
-exports.PDFFetchStream = PDFFetchStream;
-exports.PDFNetworkStream = PDFNetworkStream;
+exports.PDFFetchStream = require('./display/fetch_stream.js').PDFFetchStream;
+exports.PDFNetworkStream = require('./display/network.js').PDFNetworkStream;
