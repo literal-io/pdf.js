@@ -38,7 +38,7 @@ if (typeof PDFJSDev === 'undefined' || PDFJSDev.test('GENERIC')) {
       return new PDFNodeStream(params);
     });
   } else if (typeof Response !== 'undefined' && 'body' in Response.prototype &&
-             typeof ReadableStream !== 'undefined') {
+    typeof ReadableStream !== 'undefined') {
     let PDFFetchStream = require('./display/fetch_stream.js').PDFFetchStream;
     pdfjsDisplayAPI.setPDFNetworkStreamFactory((params) => {
       return new PDFFetchStream(params);
@@ -52,7 +52,7 @@ if (typeof PDFJSDev === 'undefined' || PDFJSDev.test('GENERIC')) {
 } else if (typeof PDFJSDev !== 'undefined' && PDFJSDev.test('CHROME')) {
   let PDFNetworkStream = require('./display/network.js').PDFNetworkStream;
   let PDFFetchStream;
-  let isChromeWithFetchCredentials = function() {
+  let isChromeWithFetchCredentials = function () {
     // fetch does not include credentials until Chrome 61.0.3138.0 and later.
     // https://chromium.googlesource.com/chromium/src/+/2e231cf052ca5e68e22baf0008ac9e5e29121707
     try {
@@ -66,7 +66,7 @@ if (typeof PDFJSDev === 'undefined' || PDFJSDev.test('GENERIC')) {
     }
   };
   if (typeof Response !== 'undefined' && 'body' in Response.prototype &&
-      typeof ReadableStream !== 'undefined' && isChromeWithFetchCredentials()) {
+    typeof ReadableStream !== 'undefined' && isChromeWithFetchCredentials()) {
     PDFFetchStream = require('./display/fetch_stream.js').PDFFetchStream;
   }
   pdfjsDisplayAPI.setPDFNetworkStreamFactory((params) => {
@@ -111,3 +111,7 @@ exports.addLinkAttributes = pdfjsDisplayDOMUtils.addLinkAttributes;
 exports.GlobalWorkerOptions = pdfjsDisplayWorkerOptions.GlobalWorkerOptions;
 exports.apiCompatibilityParams =
   pdfjsDisplayAPICompatibility.apiCompatibilityParams;
+
+exports.setPDFNetworkStreamFactory = pdfjsDisplayAPI.setPDFNetworkStreamFactory;
+exports.PDFFetchStream = PDFFetchStream;
+exports.PDFNetworkStream = PDFNetworkStream;
