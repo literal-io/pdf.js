@@ -65,6 +65,13 @@ if (typeof PDFJSDev !== 'undefined' && PDFJSDev.test('GENERIC')) {
   fakeWorkerFilesLoader = useRequireEnsure ? (function() {
     return new Promise(function(resolve, reject) {
       __non_webpack_require__.ensure([], function() {
+        /**
+         * FIXME: This compiles down to a `require` and triggers webpack to include
+         * a chunk for pdf.worker.js. AFAICT this is just to load the fake worker, disable
+         * to prevent bundle bloat as we always use a real worker.
+         */
+
+        /**
         try {
           let worker;
           if (typeof PDFJSDev !== 'undefined' && PDFJSDev.test('LIB')) {
@@ -76,6 +83,8 @@ if (typeof PDFJSDev !== 'undefined' && PDFJSDev.test('GENERIC')) {
         } catch (ex) {
           reject(ex);
         }
+        */
+        reject(new Error("Fake worker not supported."))
       }, reject, 'pdfjsWorker');
     });
   }) : dynamicLoaderSupported ? (function() {
