@@ -46,7 +46,7 @@ if (typeof PDFJSDev !== 'undefined' && PDFJSDev.test('GENERIC')) {
   let useRequireEnsure = false;
   // For GENERIC build we need to add support for different fake file loaders
   // for different frameworks.
-  if (typeof window === 'undefined') {
+  if (typeof window === 'undefined' && typeof importScripts !== 'function') {
     // node.js - disable worker and set require.ensure.
     isWorkerDisabled = true;
     if (typeof __non_webpack_require__.ensure === 'undefined') {
@@ -1423,8 +1423,8 @@ const PDFWorker = (function PDFWorkerClosure() {
 
   function getMainThreadWorkerMessageHandler() {
     try {
-      if (typeof window !== 'undefined') {
-        return (window.pdfjsWorker && window.pdfjsWorker.WorkerMessageHandler);
+      if (typeof self !== 'undefined') {
+        return (self.pdfjsWorker && self.pdfjsWorker.WorkerMessageHandler);
       }
     } catch (ex) { }
     return null;
@@ -1465,7 +1465,7 @@ const PDFWorker = (function PDFWorkerClosure() {
     } else {
       const loader = fakeWorkerFilesLoader || function() {
         return loadScript(getWorkerSrc()).then(function() {
-          return window.pdfjsWorker.WorkerMessageHandler;
+          return self.pdfjsWorker.WorkerMessageHandler;
         });
       };
       loader().then(fakeWorkerFilesLoadedCapability.resolve,
@@ -1546,9 +1546,9 @@ const PDFWorker = (function PDFWorkerClosure() {
           // Wraps workerSrc path into blob URL, if the former does not belong
           // to the same origin.
           if (typeof PDFJSDev !== 'undefined' && PDFJSDev.test('GENERIC') &&
-              !isSameOrigin(window.location.href, workerSrc)) {
+              !isSameOrigin(self.location.href, workerSrc)) {
             workerSrc = createCDNWrapper(
-              new URL(workerSrc, window.location).href);
+              new URL(workerSrc, self.location).href);
           }
 
           // Some versions of FF can't create a worker on localhost, see:
