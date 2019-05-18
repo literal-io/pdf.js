@@ -111,10 +111,13 @@ exports.URL = pdfjsSharedUtil.URL;
 exports.RenderingCancelledException =
   pdfjsDisplayDisplayUtils.RenderingCancelledException;
 exports.getFilenameFromUrl = pdfjsDisplayDisplayUtils.getFilenameFromUrl;
+exports.setPDFNetworkStreamFactory = pdfjsDisplayAPI.setPDFNetworkStreamFactory;
+exports.PDFFetchStream = require('./display/fetch_stream.js').PDFFetchStream;
+exports.PDFNetworkStream = require('./display/network.js').PDFNetworkStream;
+exports.PDFDateString = pdfjsDisplayDisplayUtils.PDFDateString;
 exports.LinkTarget = pdfjsDisplayDisplayUtils.LinkTarget;
 exports.addLinkAttributes = pdfjsDisplayDisplayUtils.addLinkAttributes;
 exports.loadScript = pdfjsDisplayDisplayUtils.loadScript;
-exports.PDFDateString = pdfjsDisplayDisplayUtils.PDFDateString;
 exports.GlobalWorkerOptions = pdfjsDisplayWorkerOptions.GlobalWorkerOptions;
 exports.apiCompatibilityParams =
   pdfjsDisplayAPICompatibility.apiCompatibilityParams;
